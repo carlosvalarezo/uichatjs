@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 
@@ -37,6 +39,8 @@ const useStyles = makeStyles(theme => ({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -51,18 +55,27 @@ const Login = () => {
     }
   }, [email, password]);
 
-  const handleLogin = async () => {
+  const routeChange = response =>{
+    const pathname = `/chat`;
+    const {token} = response.data;
+    history.push({pathname, token});
+  }
 
-  const headers = {'Access-Control-Allow-Origin':'*'}
-  const data = {email, password};
-  const loginData = await axios.post('http://localhost:8001/login', data, {headers})
-    .then(function(response) {
-      return new Promise(resolve => resolve(response))
-    })
-    .catch(function(error) {
-      console.warn(error);
-    });
-  console.log(loginData);
+  const handleLogin = () => {
+    const headers = {'Access-Control-Allow-Origin':'*'}
+    const data = {email, password};
+    // const loginData = await axios.post('http://localhost:8001/login', data, {headers})
+    axios.post('http://localhost:8001/login', data, {headers})
+      .then(response =>{
+        console.log(response)
+        if(response.status != 403){
+          routeChange(response);
+        }
+      })
+      .catch(function(error) {
+        console.warn(error);
+      });
+    // console.log(loginData);
   };
 
   return(<Container component="main" maxWidth="xs">
