@@ -64,18 +64,17 @@ const Login = () => {
   const handleLogin = () => {
     const headers = {'Access-Control-Allow-Origin':'*'}
     const data = {email, password};
-    // const loginData = await axios.post('http://localhost:8001/login', data, {headers})
     axios.post('http://localhost:8001/login', data, {headers})
       .then(response =>{
-        console.log(response)
         if(response.status != 403){
+          console.log("login", response);
           routeChange(response);
         }
+        //aqui mostrar un mensaje de error
       })
       .catch(function(error) {
         console.warn(error);
       });
-    // console.log(loginData);
   };
 
   return(<Container component="main" maxWidth="xs">
