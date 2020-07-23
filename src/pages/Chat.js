@@ -46,13 +46,18 @@ const Chat = props => {
     const [messages, setMessages] = useState('');
     const [message, setMessage] = useState('');
 
+    const SERVER = process.env.DEPLOY
+                   ? "http://chatbff:8002"
+                   : "http://localhost:8002"
+
     useEffect(() => {
       const {token} = location;
       setJwtToken(token);
     }, [location, jwtToken]);
 
 
-    const ioClient = io.connect("http://localhost:8000");
+
+    const ioClient = io.connect(SERVER);
 
     ioClient.on("start", msg => console.info(msg));
 

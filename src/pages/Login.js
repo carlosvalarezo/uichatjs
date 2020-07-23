@@ -40,7 +40,9 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
-
+  const SERVER = process.env.DEPLOY
+                ? 'http://chatserver:8001/login'
+                : 'http://localhost:8001/login'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -64,7 +66,7 @@ const Login = () => {
   const handleLogin = () => {
     const headers = {'Access-Control-Allow-Origin':'*'}
     const data = {email, password};
-    axios.post('http://localhost:8001/login', data, {headers})
+    axios.post(SERVER, data, {headers})
       .then(response =>{
         if(response.status != 403){
           console.log("login", response);

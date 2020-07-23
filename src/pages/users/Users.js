@@ -8,13 +8,16 @@ const Users = props => {
 
   const [messages, setMessages] = useState('');
 
+  const SERVER = process.env.DEPLOY
+                 ? 'http://chatserver:8001/message'
+                 : 'http://localhost:8001/message'
 
   useEffect(() => {
     const {jwt}=props;
     console.log('****', jwt)
     const headers={'Access-Control-Allow-Origin':'*', 'x-auth-token': jwt};
       const fetchMessages = async () => {
-        const messages = await axios.get('http://localhost:8001/message', {headers})
+        const messages = await axios.get(SERVER, {headers})
           .then(response => {
               console.log("data ", response.data);
               return new Promise (resolve => resolve(response.data));
