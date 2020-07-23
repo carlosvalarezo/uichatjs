@@ -40,9 +40,11 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
+
   const SERVER = process.env.DEPLOY
                 ? 'http://chatserver:8001/login'
                 : 'http://localhost:8001/login'
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);

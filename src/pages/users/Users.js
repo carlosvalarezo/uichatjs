@@ -4,8 +4,6 @@ import axios from 'axios';
 
 const Users = props => {
 
-  console.log("props...", props);
-
   const [messages, setMessages] = useState('');
 
   const SERVER = process.env.DEPLOY
@@ -14,7 +12,6 @@ const Users = props => {
 
   useEffect(() => {
     const {jwt}=props;
-    console.log('****', jwt)
     const headers={'Access-Control-Allow-Origin':'*', 'x-auth-token': jwt};
       const fetchMessages = async () => {
         const messages = await axios.get(SERVER, {headers})

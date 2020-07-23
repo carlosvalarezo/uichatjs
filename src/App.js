@@ -1,9 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import { applyMiddleware } from "redux";
-
-import { createStore } from "redux";
 
 import { Typography, Divider, Container } from "@material-ui/core";
 
