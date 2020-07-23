@@ -68,7 +68,6 @@ const Login = () => {
           console.log("login", response);
           routeChange(response);
         }
-        //aqui mostrar un mensaje de error
       })
       .catch(function(error) {
         console.warn(error);

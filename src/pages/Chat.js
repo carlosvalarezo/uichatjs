@@ -25,8 +25,18 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+const SERVER = process.env.DEPLOY
+               ? "http://chatbff:8002"
+               : "http://localhost:8002"
+const ioClient = io.connect(SERVER);
+ioClient.on("start", msg => console.info(msg));
 
+console.log("chat..");
 
+ioClient.on("send-rabbit-message-to-client", msg => {
+  // const {time, message} = msg;
+  console.log(msg);
+});
 const Chat = props => {
     const location = useLocation();
     const classes = useStyles();
@@ -35,32 +45,12 @@ const Chat = props => {
     const [messages, setMessages] = useState('');
     const [message, setMessage] = useState('');
 
-    const SERVER = process.env.DEPLOY
-                   ? "http://chatbff:8002"
-                   : "http://localhost:8002"
+
 
     useEffect(() => {
       const {token} = location;
       setJwtToken(token);
     }, [location, jwtToken]);
-
-    const ioClient = io.connect(SERVER);
-
-    ioClient.on("start", msg => console.info(msg));
-
-    console.log("chat..");
-
-    ioClient.on("send-rabbit-message-to-client", msg => {
-      // const {time, message} = msg;
-      console.log(msg);
-    });
-    ioClient.on("send-mongo-message-to-client", msg => {
-      const {owner, message, time} = msg.message.owner !== null ? msg.message : {owner:{}};
-      const {name, avatar} = owner ? owner : {name:'', avatar:''};
-      console.log({name, time, message, avatar});
-    });
-
-
 
     return(<>
       <div className={classes.paper}>
