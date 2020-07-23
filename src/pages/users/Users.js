@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import User from './User';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Users = props => {
