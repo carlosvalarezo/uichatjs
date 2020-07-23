@@ -2,13 +2,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import reducer from './redux/reducers/reducer'
 import App from './App'
 
-const store = createStore(reducer)
-
 render(
-  <Provider store={store}>
+  <Provider>
     <App />
   </Provider>,
   document.getElementById('root')
