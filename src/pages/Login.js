@@ -70,7 +70,7 @@ const Login = () => {
     const data = {email, password};
     axios.post(SERVER, data, {headers})
       .then(response =>{
-        if(response.status != 403){
+        if(response.status !== 403){
           console.log("login", response);
           routeChange(response);
         }
