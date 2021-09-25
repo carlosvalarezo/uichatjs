@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Chatjs
+
+This repo contains the frontend of chatjs. It interacts with a backend for frontend rather than hitting directly to get the data from the APi endpoint.
+
+chatjs is a project that deploys a chat using the following stack:
+- ReactJs (Frontend)
+- NodeJs (Backend)
+- MongoDB (DB)
+- docker-compose (infra for deployment)
+- rabbitmq (queue manager)
+
 
 ## Available Scripts
 
